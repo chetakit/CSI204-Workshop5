@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Lab3.1 Home Loan</title>
+
+<style>
+body{
+    font-family:Arial;
+    width:700px;
+    margin:30px auto;
+}
+
+input{
+    width:100%;
+    padding:8px;
+    margin:8px 0;
+}
+
+button{
+    padding:10px 20px;
+}
+
+#result{
+    margin-top:20px;
+    background:#f4f4f4;
+    padding:20px;
+}
+</style>
+
+</head>
+<body>
+
+<h2>คำนวณสินเชื่อบ้าน</h2>
+
+<label>เงินเดือน</label>
+<input id="salary" type="number">
+
+<label>จำนวนเงินกู้</label>
+<input id="loan">
+
+<label>ดอกเบี้ย (%)</label>
+<input id="interest" value="3">
+
+<label>จำนวนปี</label>
+<input id="year" value="30">
+
+<button onclick="calculateLoan()">
+คำนวณ
+</button>
+
+<div id="result"></div>
+
+<script>
+
+function calculateLoan(){
+
+let salary = parseFloat(document.getElementById("salary").value);
+
+let loan = parseFloat(document.getElementById("loan").value);
+
+let interest =
+parseFloat(document.getElementById("interest").value);
+
+let year =
+parseInt(document.getElementById("year").value);
+
+let maxLoan = salary * 200;
+
+if(loan > maxLoan){
+
+alert("วงเงินสูงสุดคือ " + maxLoan.toLocaleString());
+
+return;
+
+}
+
+let month = year * 12;
+
+let rate = interest/100/12;
+
+let payment =
+loan*rate*Math.pow(1+rate,month)
+/(Math.pow(1+rate,month)-1);
+
+document.getElementById("result").innerHTML=
+
+`
+<h3>ผลการคำนวณ</h3>
+
+<p>วงเงินสูงสุด ${maxLoan.toLocaleString()} บาท</p>
+
+<p>ยอดกู้ ${loan.toLocaleString()} บาท</p>
+
+<p>ดอกเบี้ย ${interest}%</p>
+
+<p>ระยะเวลา ${year} ปี</p>
+
+<h2>ค่างวดต่อเดือน
+${payment.toFixed(2)} บาท</h2>
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>
