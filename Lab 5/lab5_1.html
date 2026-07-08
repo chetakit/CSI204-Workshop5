@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab 5.1 - Product Calculator</title>
+
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        background:#f4f4f4;
+        padding:30px;
+    }
+
+    .container{
+        max-width:600px;
+        margin:auto;
+        background:white;
+        padding:20px;
+        border-radius:10px;
+        box-shadow:0 0 10px rgba(0,0,0,.2);
+    }
+
+    h2{
+        text-align:center;
+    }
+
+    .product{
+        margin:10px 0;
+    }
+
+    button{
+        margin-top:20px;
+        width:100%;
+        padding:10px;
+        background:#007bff;
+        color:white;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+    }
+
+    button:hover{
+        background:#0056b3;
+    }
+
+    #result{
+        margin-top:20px;
+        font-size:18px;
+        font-weight:bold;
+    }
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>ระบบคำนวณราคาสินค้า</h2>
+
+<div id="productList"></div>
+
+<button onclick="calculate()">คำนวณราคา</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+const products = [
+    {
+        name:"Keyboard",
+        price:800
+    },
+    {
+        name:"Mouse",
+        price:300
+    },
+    {
+        name:"Headset",
+        price:1200
+    },
+    {
+        name:"USB",
+        price:200
+    }
+];
+
+const productList=document.getElementById("productList");
+
+products.forEach((item,index)=>{
+
+productList.innerHTML+=`
+
+<div class="product">
+<input type="checkbox" id="p${index}" value="${item.price}">
+<label for="p${index}">
+${item.name} - ${item.price} บาท
+</label>
+</div>
+
+`;
+
+});
+
+function calculate(){
+
+let total=0;
+
+products.forEach((item,index)=>{
+
+if(document.getElementById(`p${index}`).checked){
+total+=item.price;
+}
+
+});
+
+let discount = 0;
+let discountPercent = 0;
+
+if (total > 1000) {
+    discountPercent = 15;
+    discount = total * 0.15;
+}
+else if (total > 500) {
+    discountPercent = 10;
+    discount = total * 0.10;
+}
+
+let net=total-discount;
+
+document.getElementById("result").innerHTML = `
+<h3>ผลการคำนวณ</h3>
+
+<p>ราคาสินค้า : ${total.toFixed(2)} บาท</p>
+
+<p>ส่วนลด : ${discountPercent}%</p>
+
+<p>จำนวนเงินที่ลด : ${discount.toFixed(2)} บาท</p>
+
+<h3>ราคาสุทธิ : ${net.toFixed(2)} บาท</h3>
+`;
+
+}
+
+</script>
+
+</body>
+</html>
