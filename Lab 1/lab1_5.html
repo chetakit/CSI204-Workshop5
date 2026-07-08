@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab 1.5 - Local Storage</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:30px;
+}
+
+.container{
+    width:450px;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,.2);
+}
+
+h1{
+    text-align:center;
+    color:#0d6efd;
+    margin-bottom:20px;
+}
+
+.input-group{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:15px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+    margin-top:10px;
+}
+
+.saveBtn{
+    background:#0d6efd;
+    color:white;
+}
+
+.saveBtn:hover{
+    background:#084298;
+}
+
+.deleteBtn{
+    background:#dc3545;
+    color:white;
+}
+
+.deleteBtn:hover{
+    background:#bb2d3b;
+}
+
+#message{
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+#result{
+    margin-top:25px;
+    padding:15px;
+    background:#f8f9fa;
+    border-radius:8px;
+}
+
+#result h3{
+    margin-bottom:10px;
+    color:#0d6efd;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Local Storage</h1>
+
+<form id="registerForm">
+
+<div class="input-group">
+<label>ชื่อ</label>
+<input type="text" id="name">
+</div>
+
+<div class="input-group">
+<label>Email</label>
+<input type="email" id="email">
+</div>
+
+<div class="input-group">
+<label>Phone</label>
+<input type="text" id="phone">
+</div>
+
+<div class="input-group">
+<label>Password</label>
+<input type="password" id="password">
+</div>
+
+<button class="saveBtn" type="submit">
+บันทึกข้อมูล
+</button>
+
+</form>
+
+<button class="deleteBtn" onclick="clearData()">
+ลบข้อมูล
+</button>
+
+<p id="message"></p>
+
+<div id="result">
+
+<h3>ข้อมูลที่บันทึก</h3>
+
+<p>ยังไม่มีข้อมูล</p>
+
+</div>
+
+</div>
+
+<script>
+
+const form=document.getElementById("registerForm");
+
+form.addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    const name=document.getElementById("name").value.trim();
+    const email=document.getElementById("email").value.trim();
+    const phone=document.getElementById("phone").value.trim();
+    const password=document.getElementById("password").value.trim();
+
+    if(name==""){
+        alert("กรุณากรอกชื่อ");
+        return;
+    }
+
+    if(email=="" || !email.includes("@")){
+        alert("Email ไม่ถูกต้อง");
+        return;
+    }
+
+    if(phone.length!=10 || isNaN(phone)){
+        alert("เบอร์โทรต้องมี 10 หลัก");
+        return;
+    }
+
+    if(password.length<6){
+        alert("Password ต้องไม่น้อยกว่า 6 ตัว");
+        return;
+    }
+
+    const user={
+        name,
+        email,
+        phone,
+        password
+    };
+
+    localStorage.setItem("user",JSON.stringify(user));
+
+    document.getElementById("message").style.color="green";
+    document.getElementById("message").innerHTML="บันทึกข้อมูลเรียบร้อย";
+
+    showData();
+
+});
+
+function showData(){
+
+    const data=JSON.parse(localStorage.getItem("user"));
+
+    if(!data){
+
+        document.getElementById("result").innerHTML=`
+        <h3>ข้อมูลที่บันทึก</h3>
+        <p>ยังไม่มีข้อมูล</p>
+        `;
+
+        return;
+    }
+
+    document.getElementById("result").innerHTML=`
+
+    <h3>ข้อมูลที่บันทึก</h3>
+
+    <p><strong>ชื่อ :</strong> ${data.name}</p>
+
+    <p><strong>Email :</strong> ${data.email}</p>
+
+    <p><strong>Phone :</strong> ${data.phone}</p>
+
+    <p><strong>Password :</strong> ${data.password}</p>
+
+    `;
+
+}
+
+function clearData(){
+
+    localStorage.removeItem("user");
+
+    document.getElementById("message").style.color="red";
+    document.getElementById("message").innerHTML="ลบข้อมูลเรียบร้อย";
+
+    showData();
+
+}
+
+showData();
+
+</script>
+
+</body>
+</html>
