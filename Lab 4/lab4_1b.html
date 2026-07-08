@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab 4.1B</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f4f4f4;
+    color:#000;
+    transition:.3s;
+}
+
+.container{
+    width:500px;
+    margin:50px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+    transition:.3s;
+}
+
+/* Dark Mode */
+body.dark{
+    background:#222;
+    color:white;
+}
+
+body.dark .container{
+    background:#333;
+    color:white;
+}
+
+body.dark h2,
+body.dark p,
+body.dark b,
+body.dark span{
+    color:white;
+}
+
+button{
+    padding:10px 15px;
+    margin-right:10px;
+    border:none;
+    cursor:pointer;
+}
+
+.btn1{
+    background:#0d6efd;
+    color:white;
+}
+
+.btn2{
+    background:red;
+    color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>ข้อมูลที่บันทึก</h2>
+
+<p><b>ชื่อ :</b> <span id="showName"></span></p>
+
+<p><b>Email :</b> <span id="showEmail"></span></p>
+
+<p><b>เบอร์โทร :</b> <span id="showPhone"></span></p>
+
+<p><b>Theme :</b> <span id="showTheme"></span></p>
+
+<br>
+
+<button class="btn1" onclick="changeTheme()">
+เปลี่ยน Theme
+</button>
+
+<button class="btn2" onclick="clearData()">
+ล้างข้อมูล
+</button>
+
+</div>
+
+<script>
+
+let name=localStorage.getItem("name");
+let email=localStorage.getItem("email");
+let phone=localStorage.getItem("phone");
+let theme=localStorage.getItem("theme");
+
+document.getElementById("showName").innerHTML=name;
+document.getElementById("showEmail").innerHTML=email;
+document.getElementById("showPhone").innerHTML=phone;
+document.getElementById("showTheme").innerHTML=theme;
+
+if(theme === "Dark"){
+    document.body.classList.add("dark");
+}else{
+    document.body.classList.remove("dark");
+}
+
+function changeTheme(){
+
+    if(document.body.classList.contains("dark")){
+
+        document.body.classList.remove("dark");
+
+        localStorage.setItem("theme","Light");
+
+        document.getElementById("showTheme").innerHTML="Light";
+
+    }else{
+
+        document.body.classList.add("dark");
+
+        localStorage.setItem("theme","Dark");
+
+        document.getElementById("showTheme").innerHTML="Dark";
+
+    }
+
+}
+
+function clearData(){
+
+    localStorage.clear();
+
+    alert("ล้างข้อมูลเรียบร้อย");
+
+    window.location.href="lab4_1a.html";
+
+}
+
+</script>
+
+</body>
+</html>
