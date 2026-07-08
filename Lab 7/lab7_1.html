@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab 7.1 - Student Management</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        padding: 30px;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+
+      th {
+        background: #007bff;
+        color: white;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: center;
+      }
+
+      .summary {
+        margin-top: 20px;
+        background: #eef7ff;
+        padding: 15px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>ระบบจัดการข้อมูลนักเรียน</h2>
+
+      <div id="studentTable"></div>
+
+      <div class="summary" id="summary"></div>
+    </div>
+
+    <script>
+      const students = [
+        {
+          id: 1,
+          name: "Somchai",
+          score: 95,
+          grade: "A",
+        },
+
+        {
+          id: 2,
+          name: "Suda",
+          score: 82,
+          grade: "B",
+        },
+
+        {
+          id: 3,
+          name: "Anan",
+          score: 77,
+          grade: "C",
+        },
+
+        {
+          id: 4,
+          name: "Nok",
+          score: 90,
+          grade: "A",
+        },
+
+        {
+          id: 5,
+          name: "Beam",
+          score: 65,
+          grade: "D",
+        },
+      ];
+
+      // ---------- map() แสดงตาราง ----------
+
+      let html = `
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>ชื่อ</th>
+<th>คะแนน</th>
+<th>เกรด</th>
+</tr>
+
+`;
+
+      students.map((student) => {
+        html += `
+
+<tr>
+
+<td>${student.id}</td>
+
+<td>${student.name}</td>
+
+<td>${student.score}</td>
+
+<td>${student.grade}</td>
+
+</tr>
+
+`;
+      });
+
+      html += "</table>";
+
+      document.getElementById("studentTable").innerHTML = html;
+
+      // ---------- reduce() ----------
+
+      const average =
+        students.reduce((sum, student) => {
+          return sum + student.score;
+        }, 0) / students.length;
+
+      // ---------- filter() ----------
+
+      const gradeA = students.filter((student) => student.grade === "A");
+
+      document.getElementById("summary").innerHTML = `
+
+<h3>สรุปผล</h3>
+
+<p>คะแนนเฉลี่ย : <strong>${average.toFixed(2)}</strong></p>
+
+<p>จำนวนนักเรียนทั้งหมด : <strong>${students.length}</strong></p>
+
+<p>นักเรียนที่ได้เกรด A :
+<strong>${gradeA.map((student) => student.name).join(", ")}</strong></p>
+
+`;
+    </script>
+  </body>
+</html>

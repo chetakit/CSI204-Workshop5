@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab 7.2 - JSON</title>
+
+<style>
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f4f4f4;
+    padding:30px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+button{
+    padding:10px 20px;
+    margin:10px 5px;
+    cursor:pointer;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+table,th,td{
+    border:1px solid #ccc;
+}
+
+th{
+    background:#007bff;
+    color:white;
+}
+
+th,td{
+    padding:10px;
+    text-align:center;
+}
+
+pre{
+    background:#eee;
+    padding:10px;
+    overflow:auto;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>ระบบ Import / Export JSON</h2>
+
+<button onclick="exportJSON()">Export JSON</button>
+
+<input type="file" id="importFile" accept=".json">
+
+<button onclick="importJSON()">Import JSON</button>
+
+<h3>JSON String</h3>
+
+<pre id="jsonText"></pre>
+
+<div id="table"></div>
+
+<div id="summary"></div>
+
+</div>
+
+<script>
+
+let students = [
+
+{
+id:1,
+name:"Somchai",
+score:95,
+grade:"A"
+},
+
+{
+id:2,
+name:"Suda",
+score:82,
+grade:"B"
+},
+
+{
+id:3,
+name:"Anan",
+score:77,
+grade:"C"
+},
+
+{
+id:4,
+name:"Nok",
+score:90,
+grade:"A"
+},
+
+{
+id:5,
+name:"Beam",
+score:65,
+grade:"D"
+}
+
+];
+
+showData();
+
+function showData(){
+
+// Object -> JSON
+
+const json = JSON.stringify(students,null,2);
+
+document.getElementById("jsonText").textContent = json;
+
+// JSON -> Object
+
+const data = JSON.parse(json);
+
+// -------- forEach --------
+
+let html = `
+
+<table>
+
+<tr>
+
+<th>ID</th>
+
+<th>ชื่อ</th>
+
+<th>คะแนน</th>
+
+<th>เกรด</th>
+
+</tr>
+
+`;
+
+data.forEach(student=>{
+
+html += `
+
+<tr>
+
+<td>${student.id}</td>
+
+<td>${student.name}</td>
+
+<td>${student.score}</td>
+
+<td>${student.grade}</td>
+
+</tr>
+
+`;
+
+});
+
+html += "</table>";
+
+document.getElementById("table").innerHTML = html;
+
+
+// -------- map --------
+
+const names = data.map(student=>student.name);
+
+
+// -------- filter --------
+
+const gradeA = data.filter(student=>student.grade==="A");
+
+
+// -------- reduce --------
+
+const average = data.reduce((sum,student)=>sum+student.score,0)/data.length;
+
+
+document.getElementById("summary").innerHTML = `
+
+<h3>สรุปข้อมูล</h3>
+
+<p><b>รายชื่อนักเรียน :</b> ${names.join(", ")}</p>
+
+<p><b>คะแนนเฉลี่ย :</b> ${average.toFixed(2)}</p>
+
+<p><b>นักเรียนเกรด A :</b> ${gradeA.map(student=>student.name).join(", ")}</p>
+
+`;
+
+}
+
+
+// Export JSON
+
+function exportJSON(){
+
+const json = JSON.stringify(students,null,2);
+
+const blob = new Blob([json],{type:"application/json"});
+
+const url = URL.createObjectURL(blob);
+
+const a = document.createElement("a");
+
+a.href = url;
+
+a.download = "students.json";
+
+a.click();
+
+URL.revokeObjectURL(url);
+
+}
+
+
+// Import JSON
+
+function importJSON(){
+
+const file = document.getElementById("importFile").files[0];
+
+if(!file){
+
+alert("กรุณาเลือกไฟล์ JSON");
+
+return;
+
+}
+
+const reader = new FileReader();
+
+reader.onload = function(e){
+
+students = JSON.parse(e.target.result);
+
+showData();
+
+}
+
+reader.readAsText(file);
+
+}
+
+</script>
+
+</body>
+</html>
