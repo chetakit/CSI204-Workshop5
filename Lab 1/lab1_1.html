@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 1.1 - Data Types</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f5f5f5;
+            padding:40px;
+        }
+
+        .container{
+            max-width:800px;
+            margin:auto;
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,.15);
+        }
+
+        h1{
+            color:#0d6efd;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        table,th,td{
+            border:1px solid #ccc;
+        }
+
+        th,td{
+            padding:10px;
+            text-align:left;
+        }
+
+        th{
+            background:#0d6efd;
+            color:white;
+        }
+
+        tr:nth-child(even){
+            background:#f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Lab 1.1 : Variables & Data Types</h1>
+
+    <p><strong>ชื่อ:</strong> Chetakit Subsuksanti</p>
+    <p><strong>รหัสนักศึกษา:</strong> 67150490</p>
+
+    <div id="output"></div>
+
+</div>
+
+<script>
+
+    // String
+    let studentName = "Chetakit Subsuksanti";
+
+    // Number
+    let age = 20;
+
+    // Boolean
+    let isStudent = true;
+
+    // Array
+    let subjects = [
+        "HTML",
+        "CSS",
+        "JavaScript"
+    ];
+
+    // Object
+    let student = {
+        id: "XXXXXXXX",
+        name: studentName,
+        faculty: "Computer Science",
+        university: "Sripatum University"
+    };
+
+    // แสดงใน Console
+    console.log(studentName);
+    console.log(age);
+    console.log(isStudent);
+    console.log(subjects);
+    console.log(student);
+
+    // ทดลองแปลงชนิดข้อมูล
+    let number1 = parseInt("100");
+    let number2 = parseFloat("99.99");
+    let text = String(500);
+
+    console.log(number1);
+    console.log(number2);
+    console.log(text);
+
+    // แสดงผลบนหน้าเว็บ
+
+    document.getElementById("output").innerHTML = `
+        <table>
+
+            <tr>
+                <th>ชนิดข้อมูล</th>
+                <th>ค่า</th>
+            </tr>
+
+            <tr>
+                <td>String</td>
+                <td>${studentName}</td>
+            </tr>
+
+            <tr>
+                <td>Number</td>
+                <td>${age}</td>
+            </tr>
+
+            <tr>
+                <td>Boolean</td>
+                <td>${isStudent}</td>
+            </tr>
+
+            <tr>
+                <td>Array</td>
+                <td>${subjects.join(", ")}</td>
+            </tr>
+
+            <tr>
+                <td>Object</td>
+                <td>
+                    ID : ${student.id}<br>
+                    Name : ${student.name}<br>
+                    Faculty : ${student.faculty}<br>
+                    University : ${student.university}
+                </td>
+            </tr>
+
+            <tr>
+                <td>parseInt()</td>
+                <td>${number1}</td>
+            </tr>
+
+            <tr>
+                <td>parseFloat()</td>
+                <td>${number2}</td>
+            </tr>
+
+            <tr>
+                <td>String()</td>
+                <td>${text}</td>
+            </tr>
+
+        </table>
+    `;
+
+</script>
+
+</body>
+</html>
