@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 8.1 - Loan Calculator</title>
+
+    <link rel="stylesheet" href="lab8_1.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>ระบบคำนวณสินเชื่อ</h1>
+
+    <div class="form">
+
+        <label>จำนวนเงินกู้ (บาท)</label>
+        <input type="number" id="loanAmount">
+
+        <label>อัตราดอกเบี้ยต่อปี (%)</label>
+        <input type="number" id="interestRate">
+
+        <label>ระยะเวลา (เดือน)</label>
+        <input type="number" id="months">
+
+        <button onclick="generateTable()">
+            คำนวณสินเชื่อ
+        </button>
+
+    </div>
+
+    <div id="summary"></div>
+
+    <div id="amortizationTable"></div>
+
+</div>
+
+<script src="lab8_1.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mortgage Calculator</title>
+
+    <link rel="stylesheet" href="house_loan_calculator.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🏠 Mortgage Calculator</h1>
+
+    <div class="card">
+
+        <div class="row">
+
+            <div class="form-group">
+
+                <label>ราคาบ้าน (บาท)</label>
+
+                <input
+                type="number"
+                id="housePrice"
+                placeholder="เช่น 3000000">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>เงินดาวน์ (บาท)</label>
+
+                <input
+                type="number"
+                id="downPayment"
+                placeholder="เช่น 300000">
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="form-group">
+
+                <label>อัตราดอกเบี้ย (% ต่อปี)</label>
+
+                <input
+                type="number"
+                id="interestRate"
+                value="5"
+                step="0.01">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>ระยะเวลา</label>
+
+                <select id="years">
+
+                    <option value="10">10 ปี</option>
+
+                    <option value="20">20 ปี</option>
+
+                    <option value="30" selected>30 ปี</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="form-group">
+
+                <label>วงเงินกู้</label>
+
+                <input
+                type="text"
+                id="loanAmount"
+                readonly>
+
+            </div>
+
+        </div>
+
+
+        <button onclick="calculateLoan()">
+
+            คำนวณสินเชื่อ
+
+        </button>
+
+    </div>
+
+
+    <div id="summary"></div>
+
+
+    <div id="tableArea"></div>
+
+</div>
+
+<script src="house_loan_calculator.js"></script>
+
+</body>
+</html>
