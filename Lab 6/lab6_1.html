@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab 6.1 - Unit Converter</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f4f4f4;
+    padding:30px;
+}
+
+.container{
+    width:450px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+}
+
+input,
+select,
+button{
+
+width:100%;
+padding:10px;
+margin-top:15px;
+
+}
+
+button{
+
+background:#007bff;
+color:white;
+border:none;
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#0056b3;
+
+}
+
+#result{
+
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>ระบบแปลงหน่วย</h2>
+
+<label>กรอกค่า</label>
+
+<input
+type="number"
+id="value"
+placeholder="กรอกตัวเลข">
+
+<label>เลือกประเภทการแปลง</label>
+
+<select id="type">
+
+<option value="kg">กิโลกรัม ➜ ปอนด์</option>
+
+<option value="c">เซลเซียส ➜ ฟาเรนไฮต์</option>
+
+<option value="km">กิโลเมตร ➜ ไมล์</option>
+
+</select>
+
+<button onclick="convert()">แปลงหน่วย</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function convert(){
+
+let value=parseFloat(document.getElementById("value").value);
+
+if(isNaN(value)){
+
+alert("กรุณากรอกตัวเลข");
+
+return;
+
+}
+
+let type=document.getElementById("type").value;
+
+let answer=0;
+let unit="";
+
+switch(type){
+
+case "kg":
+
+answer=value*2.20462;
+unit="ปอนด์";
+break;
+
+case "c":
+
+answer=(value*9/5)+32;
+unit="°F";
+break;
+
+case "km":
+
+answer=value*0.621371;
+unit="ไมล์";
+break;
+
+default:
+
+answer=0;
+
+}
+
+document.getElementById("result").innerHTML=`
+
+ผลลัพธ์ : ${answer.toFixed(2)} ${unit}
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>
